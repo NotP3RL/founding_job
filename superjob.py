@@ -32,11 +32,13 @@ def get_sj_vacancies(languages, token):
             response.raise_for_status()
             for vacancy in response.json()['objects']:
                 if vacancy['currency'] == 'rub':
-                    sum_salary += predict_salary(
-                        vacancy['payment_from'],
-                        vacancy['payment_to']
-                    )
-                    vacancies_processed += 1
+                    if vacancy['payment_from'] or vacancy['payment_to']:
+                        print(vacancy['payment_from'], vacancy['payment_to'])
+                        sum_salary += predict_salary(
+                            vacancy['payment_from'],
+                            vacancy['payment_to']
+                        )
+                        vacancies_processed += 1
             vacancy_page_count = ceil(
                 response.json()['total'] / vacancy_count_per_page
             )

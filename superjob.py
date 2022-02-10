@@ -34,7 +34,6 @@ def get_sj_vacancies(languages, token):
             for vacancy in formated_response['objects']:
                 if vacancy['currency'] == 'rub':
                     if vacancy['payment_from'] or vacancy['payment_to']:
-                        print(vacancy['payment_from'], vacancy['payment_to'])
                         sum_salary += predict_salary(
                             vacancy['payment_from'],
                             vacancy['payment_to']

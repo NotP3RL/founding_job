@@ -13,8 +13,8 @@ def get_hh_vacancies(languages):
         vacancies_processed = 0
         for page_number in count(0, 1):
             params = {
-                'specialization': '1.221',
-                'area': '1',
+                'specialization': '1.221', # id of programmer specialization
+                'area': '1', # moscow area id
                 'period': '30',
                 'per_page': '100',
                 'page': page_number,

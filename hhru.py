@@ -22,17 +22,18 @@ def get_hh_vacancies(languages):
             }
             response = requests.get('https://api.hh.ru/vacancies', params=params)
             response.raise_for_status()
-            for vacancy in response.json()['items']:
+            formated_response = response.json()
+            for vacancy in formated_response['items']:
                 if vacancy['salary'] and vacancy['salary']['currency'] == 'RUR':
                     sum_salary += predict_salary(
                         vacancy['salary']['from'],
                         vacancy['salary']['to']
                     )
                     vacancies_processed += 1
-            if page_number >= response.json()['pages'] - 1:
+            if page_number >= formated_response['pages'] - 1:
                 break
         vacancies[language] = {
-            'vacancies_found': response.json()['found'],
+            'vacancies_found': formated_response['found'],
             'vacancies_processed': vacancies_processed,
             'average_salary': int(sum_salary / vacancies_processed)
         }

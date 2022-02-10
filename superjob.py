@@ -30,7 +30,8 @@ def get_sj_vacancies(languages, token):
                 params=params
             )
             response.raise_for_status()
-            for vacancy in response.json()['objects']:
+            formated_response = response.json()
+            for vacancy in formated_response['objects']:
                 if vacancy['currency'] == 'rub':
                     if vacancy['payment_from'] or vacancy['payment_to']:
                         print(vacancy['payment_from'], vacancy['payment_to'])
@@ -40,12 +41,12 @@ def get_sj_vacancies(languages, token):
                         )
                         vacancies_processed += 1
             vacancy_page_count = ceil(
-                response.json()['total'] / vacancy_count_per_page
+                formated_response['total'] / vacancy_count_per_page
             )
             if page_number == vacancy_page_count - 1:
                 break
         vacancies[language] = {
-            'vacancies_found': response.json()['total'],
+            'vacancies_found': formated_response['total'],
             'vacancies_processed': vacancies_processed,
             'average_salary': int(sum_salary / vacancies_processed)
         }

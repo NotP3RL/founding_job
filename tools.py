@@ -7,7 +7,7 @@ def predict_salary(salary_from, salary_to):
     elif not salary_to:
         return salary_from * 1.2
     else:
-        return salary_from + salary_to / 2
+        return (salary_from + salary_to) / 2
 
 
 def get_vacancy_table(vacancies, title):
